@@ -2,7 +2,6 @@ package com.mpm.seguridad.models;
 
 import java.util.List;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,8 +17,8 @@ public class Permiso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long codigo;
 
-    @Column(name = "nombre")
-    private String nombre;
+    @Column(name = "descripcion")
+    private String descripcion;
 
     @ManyToMany(mappedBy = "permisos")
     private List<Usuario> usuarios;
@@ -27,9 +26,15 @@ public class Permiso {
     @Transient
     private boolean hasPermiso;
 
-    public Permiso(long codigo, String nombre, List<Usuario> usuarios, boolean hasPermiso) {
+    public Permiso(String descripcion, List<Usuario> usuarios, boolean hasPermiso) {
+        this.descripcion = descripcion;
+        this.usuarios = usuarios;
+        this.hasPermiso = hasPermiso;
+    }
+
+    public Permiso(long codigo, String descripcion, List<Usuario> usuarios, boolean hasPermiso) {
         this.codigo = codigo;
-        this.nombre = nombre;
+        this.descripcion = descripcion;
         this.usuarios = usuarios;
         this.hasPermiso = hasPermiso;
     }
@@ -47,14 +52,6 @@ public class Permiso {
 
     public void setCodigo(long codigo) {
         this.codigo = codigo;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public List<Usuario> getUsuarios() {
@@ -95,6 +92,12 @@ public class Permiso {
         return true;
     }
 
-    
-    
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
 }
